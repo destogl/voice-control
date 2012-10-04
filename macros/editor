@@ -1,0 +1,6 @@
+NEXT DOCUMENT=hotkey:Control + Alt + PageUp
+PREVIOUS DOCUMENT=hotkey:Control + Alt + PageDown
+SAVE ALL=hotkey:Control + Shift + l
+
+
+Additional=write

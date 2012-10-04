@@ -1,0 +1,10 @@
+General TODO list for Voice-control
+-----------------------------------
+
+- write function for search in special dictionaries
+- better comparison of heard string and commands
+- add text2speech mode
+- add choosing of speak-synthesiser program
+- disable only audio notifications
+- disable only system notifications
+- add pattern to combine hotkey, command, string and mouse

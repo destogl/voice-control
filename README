@@ -1,0 +1,93 @@
+README
+
+Voice-control lets you controlling your computer with help of keyboard shortcuts and terminal command for which you can define voice command. Application will hear only reduced set of words you are using to ensure robustness.
+
+Application is an extension of SPHINXKEYS project (http://code.google.com/p/sphinxkeys/) in order to improve usage and flexibility.
+
+
+REQUIREMENTS
+
+Currently Voice-Control works only on Linux due to it's dependence on xmacro to send keyboard actions, espeak to give audio feedback, notify-show to show notifications. It's is tested on Ubuntu 12.04 but it should work on other distribution if proper libraries are installed. It can work on other OS if exist equivalent of above programs.
+
+This programs only connects few other components:
+gstreamer0.10-pocketsphinx: GStreamer plugin for Pocketsphinx 
+python-pocketsphinx: Python hooks into Pocketsphinx 
+xmacro: Sends keystrokes to your screen
+espeak: Audio synthesiser for audio feedback
+python-mechanize: Python library for accessing web-pages trough program
+notify-show: Program to send notifications
+gstreamer0.10-plugins-base: GStreamer plugins for basic sound processing 
+gstreamer0.10-alsa: GStreamer plugin for ALSA, which makes your microphone work 
+
+Make sure they are install before use!!
+
+
+INSTALLATION
+Test your microphone and make sure it works. The program alsamixer can show you whether the microphone is enabled on your sound card. You can use the simple programs arecord and aplay to do test recordings with your microphone.
+Download the files from repository and put them on location where you have writing rights.
+
+In your HOME folder create '.voice-control' folder and inside file mode:
+mkdir ~/.voice-control
+touch ~/.voice-control/mode
+
+In this file will be saved current mode so you can show it in other applications.
+
+
+CONFIGURATION
+
+Voice-control lets you defining your own key-words/command for every operation. There are two key files for macros definition 'system' and 'passwords' (in folder macros).
+
+Structure of system file is a bit complicated so lets explain it section by section.
+
+1. 'properties' section: defined system properties
+    LANG - language for speak-synthesiser
+    USER - your user-name
+
+2. 'system' section: defines system key-words, for explanation see macros/system file
+
+3. 'special_states' section: in this states will not be added 'system_wide' shortcuts
+
+4. 'shortcuts' section: application specific shortcuts sets (every shortcut-set is different mode)
+    NOTE: every value should have corresponding file with actions
+
+5. 'applications' section: defines key-words for applications starting/closing (can be only used in listening mode)
+
+6. 'window_manager_desktop_names' section: names of used desktops and corresponding action for focusing it
+
+7. 'window_manager_shortcuts' section: specific WM  shortcuts (can be only used in listening mode)
+
+8. 'system_wide' section: system wide shortcuts which will be added in all modes
+    NOTE: specific application shortcuts are defined in this format!!
+
+After every change of macro-files database should be updated. You can do that by telling in 'system' mode [NAME] + [UPDATE_COMMAND] or restarting application with flag '-g'!
+
+It's very convenient to speak a command to type a password that you use frequently. However, you should not type and save your password in any of the configuration files. Instead, you give your password an alias in 'macros/passwords' file. Then when Voice-control starts up, it will prompt you to enter the password for each alias, and Voice-control will remember the password while it is running, and type it out whenever you speak the alias.
+
+Example:
+Let's say your password for school is "easytoguess", and your work password is "worstever".
+Think of an alias for each password, for example "school" and "work".
+In the macros file 'passwords' put the word "school" in one line, and "work" on another line.
+Update Voice-control database and when you need to type out your school password "easytoguess", say "password school".
+
+
+USAGE
+Run the script: voice-control.py from main directory (e.g. in terminal 'voice-control/voice-control.py')
+Dictionary and model files will be generated automatically so you should wait a bit, application will send a notification when it's ready.
+
+NOTE: [SOMETHING] - value of [SOMETHING]
+
+Application is started in 'system' with commands:
+switch to listening mode: [NAME] + [START_COMMAND]
+update database: [NAME] + [UPDATE_COMMAND]
+close Voice-control: [NAME] + [CLOSE_COMMAND]
+
+In listening mode there are application specific commands (HAS TO BE IN 'listening' MODE):
+open application: [START] + [application_name]
+close application: [NAME] + [CLOSE] + [application_name]
+print password: [PASSWORD_COMMAND] + [password_alias]
+print user_name: [USERNAME_COMMAND] + [username_alias]
+
+In listening and all other modes besides 'system_wide' commands are also
+change desktop: [FOCUS] +[desktop_name]
+changing mode: [USE] + [shortcut_key]
+switch to system mode: [NAME] + [STOP_COMMAND]

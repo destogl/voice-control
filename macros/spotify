@@ -1,0 +1,7 @@
+PLAY=hotkey:Space
+PAUSE=hotkey:Space
+NEXT=hotkey:Control + ArrowRight
+PREVIOUS=hotkey:Control + ArrowLeft
+
+VOLUME DOWN=hotkey:Control + ArrowDown
+VOLUME UP=hotkey:Control + ArrowUp

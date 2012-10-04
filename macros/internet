@@ -1,0 +1,13 @@
+NEW TAB=hotkey:Control + t
+INPUT ADDRESS=hotkey:Control + l
+SEARCH INTERNET=hotkey:Control + l | Tab
+
+#chromium
+LEFT TAB=hotkey:Control + PageUp
+RIGHT TAB=hotkey:Control + ArrowDown
+
+#opera
+#LEFT TAB=hotkey:Control + ArrowLeft
+#RIGHT TAB=hotkey:Control + ArrowRight
+
+#UNDO CLOSE TAB=hotkey:Control + Alt + Shift + z

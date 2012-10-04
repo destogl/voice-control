@@ -1,0 +1,4 @@
+PLAY=hotkey:Space
+PAUSE=hotkey:Space
+FULL SCREEN=hotkey:F11
+DOWNLOAD SUBTITLES=hotkey:Alt + v | u | n

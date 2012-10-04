@@ -1,0 +1,36 @@
+SUMMARY=hotkey:Control + 1
+E-MAILS=hotkey:Control + 2
+CALENDAR=hotkey:Control + 5
+FEEDS=hotkey:Control + 6
+
+CHECK MAIL=hotkey:Control + l
+APPLY ALL FILTERS=hotkey:Control + j
+
+NEXT FOLDER=hotkey:Alt + +
+PREVIOUS FOLDER=hotkey:Alt + -
+NEXT MAIL=hotkey:+
+PREVIOUS MAIL=hotkey:-
+MOVE TO TRASH=hotkey:Del
+
+FORWARD MAIL=hotkey:Shift + F
+REPLY MAIL=hotkey:R
+REPLY TO ALL=hotkey:A
+
+EXPAND ALL=hotkey:Control + .
+EXPAND GROUP=hotkey:.
+COLLAPSE ALL=hotkey:Control + ,
+COLLAPSE GROUP=hotkey:,
+
+SCROLL DOWN=hotkey:ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown | ArrowDown
+SCROLL UP=hotkey:ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp | ArrowUp
+#STOP=KeyStrRelease Down\nKeyStrRelease Up\n
+
+NEXT=hotkey:ArrowRight
+PREVIOUS=hotkey:ArrowLeft
+
+NEXT FEED=hotkey:n | ArrowRight
+PREVIOUS FEED=hotkey:p | ArrowRight
+FETCH ALL FEEDS=hotkey:Control + l
+
+OPEN IN TAB=hotkey:Shift + Return
+OPEN IN BROWSER=hotkey:Control + Shift + Return
