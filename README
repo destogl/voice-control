@@ -1,5 +1,3 @@
-README
-
 Voice-control lets you controlling your computer with help of keyboard shortcuts and terminal command for which you can define voice command. Application will hear only reduced set of words you are using to ensure robustness.
 
 Application is an extension of SPHINXKEYS project (http://code.google.com/p/sphinxkeys/) in order to improve usage and flexibility.
@@ -19,75 +17,128 @@ notify-show: Program to send notifications
 gstreamer0.10-plugins-base: GStreamer plugins for basic sound processing 
 gstreamer0.10-alsa: GStreamer plugin for ALSA, which makes your microphone work 
 
-Make sure they are install before use!!
+Make sure they are installed before use!!
 
 
 INSTALLATION
+
 Test your microphone and make sure it works. The program alsamixer can show you whether the microphone is enabled on your sound card. You can use the simple programs arecord and aplay to do test recordings with your microphone.
 Download the files from repository and put them on location where you have writing rights.
 
-In your HOME folder create '.voice-control' folder and inside file mode:
-mkdir ~/.voice-control
-touch ~/.voice-control/mode
 
-In this file will be saved current mode so you can show it in other applications.
+USAGE & CONFIGURATION
 
+For starting application run the voice-control.py program from main directory (e.g. 'voice-control/voice-control.py'). On the first run program will automatically generate default configuration respectively dictionary and model files in .voice-control in your home directory. So please ensure connection to the Internet (needed for generating dictionary and model files) and be patient, application will notify you when it's ready.
 
-CONFIGURATION
+Then will open application's GUI, so lets explain it.
+Application will open in 'Standard view', there are two views 'Standard' and 'Configuration' available from 'View' menu.
 
-Voice-control lets you defining your own key-words/command for every operation. There are two key files for macros definition 'system' and 'passwords' (in folder macros).
+STANDARD VIEW
+Standard view shows status of application like working mode, what application has heard and few buttons. You will see that application is in 'system' mode, but what does it mean? This all application is based on different modes in which are used different dictionary and language model in order to reduce computer understanding errors. So in every mode is used an reduced set of words (words combination) called sentences (system will generate it automatically, you can see it in .voice-control/sentences/ folder), respectively only words (words combination) that are defined in macro file (see later) for that mode. So modes are here to make communication with computer easier and you can configure it how you wish (see later).
 
-Structure of system file is a bit complicated so lets explain it section by section.
+'system' mode is default and basic mode always active when application is started. Also this mode is useful when you are speaking with somebody in the room or on skype because set of commands is very specific and small so it's prevent misunderstanding between you and computer.
 
-1. 'properties' section: defined system properties
-    LANG - language for speak-synthesiser
+Let's just make a short jump to Configuration view before further explanation of functionality.
+
+CONFIGURATION VIEW
+First of all in configuration view you see, a lot of tabs. Almost every tab defines different mode (shortcuts-set) used mostly in different applications. First opened tab is system tab with system properties and system commands. Let's explain it section by section:
+
+'Properties': system properties
+    LANG - language for speak-synthesiser (see 'espeak --voice')
     USER - your user-name
+    
+'System commands': commands used for controlling essential application functionality
+    - here you can define words for activating specific command
+    NOTE: [SOMETHING] is value of SOMETHING
+    
+    NAME - name of computer (key-word for computer), used with other system commands.
+    START_COMMAND - command to start 'listening' mode. Works only from 'system 'mode. Usage: [NAME] + [START_COMMAND] (default is empty string, so listening mode will be activated only with [NAME])
+    STOP_COMMAND - command to stop listening (switch to 'system' mode from any mode). Usage: [NAME] + [STOP_COMMAND] (default: STOP)
+    CLOSE_COMMAND - command to close application. Works only in 'system' mode. Usage: [NAME] + [CLOSE_COMMAND] (default: GOODBYE)
+    UPDATE_COMMAND - command to update sentences, dictionaries and model files. You should do this after changing or adding macros files (Commands in Configuration View). Works only in 'system' mode. Usage: [NAME] + [UPDATE_COMMAND] (default: UPDATE)
 
-2. 'system' section: defines system key-words, for explanation see macros/system file
+    PASSWORD_COMMAND - command to get a password. Works only in 'listening' mode. Usage [PASSWORD_COMMAND] + [PASSWORD_MACRO] (default: KEY)
+    USERNAME_COMMAND - command to get an username. Works only in 'listening' mode. Usage [USERNAME_COMMAND] + [USERNAME_MACRO] (default: USER)
+        note: [PASSWORD_MACRO] and [USERNAME_MACRO] are defined in 'passwords' respectively 'usernames' files. For defining passwords read About passwords section!!
+        
+    FOCUS - command to focus desktop in combination with desktop name. Works in all modes, but not in 'system' and special_states modes (see under). Usage: [FOCUS] + [DESKTOP_NAME] (default: SHOW)
+        note: [DESKTOP_NAME] are defined in 'Window manager desktop names' (see under)
+    USE - command to activate shortcut-set. Works in all modes, but not in 'system' and special_states modes (see under). Usage: [USE] + [SHORTCUT-SET] (default: USE)
+        note: [SHORTCUT-SET] are defined in 'Shortcut-set' and 'Special states' section (see under)
+    START - command to start application. Works in all modes, but not in 'system' and special_states modes (see under). Usage: [START] + [APPLICATION_MACRO] (default: OPEN)
+        note: [APPLICATION_MACRO] are defined in 'Applications' section (see under)
+    CLOSE - command to close application. Works only in 'system' mode. Usage: [NAME] + [CLOSE] + [APPLICATION_MACRO] (default: CLOSE)
+        note: [APPLICATION_MACRO] are defined in 'Applications' section (see under)
+        CURRENTLY BROKEN!! - because it's not easy to close application from command line without focusing it.
+    
+'Special states': here can be defined special modes
+    - usually in all modes will be appended 'system_wide' and most of 'system' shortcuts, but in this special_states modes will not be added. This is useful for example for screen-saver mode, where we want to have only one specific voice-command to wake up computer.
+    
+'Shortcut-set': section where are defined shortcuts-sets
+    - they are defined as key-value pairs. Keys are [SHORTCUT-SET] for changing shortcuts-set. Shortcuts-set can be changed automatically after executing an action (see by definition of normal voice-commands/actions)
+    - For every value there should exist the file with the same name in macros folder. In this file will be defined specific shortcuts for this mode.
+    - every shortcut-set will be showed in own tab
+    - NOTE: currently it will not be added new tab after adding new shortcut-set, but you have to restart application to show new shortcut-set in own tab!
 
-3. 'special_states' section: in this states will not be added 'system_wide' shortcuts
+'Applications': section where are defined applications macros/commands
+    - defined as key-value pairs. Keys are [APPLICATION_MACRO] for starting/closing applications.
 
-4. 'shortcuts' section: application specific shortcuts sets (every shortcut-set is different mode)
-    NOTE: every value should have corresponding file with actions
+In next tab are defined already normal voice-commands with actions.
+'Window manager desktop names': defined desktop names
+    - defined as key-value pairs. Keys are [DESKTOP_NAME] for focusing a different desktops.
+    - value is list of actions to switch to desktop and 'Next mode' is mode to switch after executing action. So if we focus text editor is logic to use text editor shortcuts-set.
+    - note: for defining actions see ABOUT ACTIONS part
 
-5. 'applications' section: defines key-words for applications starting/closing (can be only used in listening mode)
+'Window manager shortcut': shortcuts defined on WM level
+    - defined as key-value pairs. Keys are voice-command to execute action and switch to next mode is needed.
+    - can be USED ONLY in 'system' and 'listening' mode
+    - note: for defining actions see ABOUT ACTIONS part
+    - NOTE: this pattern is standard for use with all voice-command. So voice-command is always KEY with defined list of actions and next mode.
 
-6. 'window_manager_desktop_names' section: names of used desktops and corresponding action for focusing it
+'system wide': Tab where are defined system-wide shortcuts
+    - defined as key-value pairs. Keys are voice-command to execute action and switch to next mode is needed.
+    - note: for defining actions see ABOUT ACTIONS part
 
-7. 'window_manager_shortcuts' section: specific WM  shortcuts (can be only used in listening mode)
+All this sections until now define voice-commands which you can use in all modes (but not in 'system' of 'special_states' modes, if is not written differently), so it will be added in all sentences, dictionaries and model files.
 
-8. 'system_wide' section: system wide shortcuts which will be added in all modes
-    NOTE: specific application shortcuts are defined in this format!!
+In following tabs are defined specific shortcuts-sets in the standard pattern. For more explanation read further.
 
-After every change of macro-files database should be updated. You can do that by telling in 'system' mode [NAME] + [UPDATE_COMMAND] or restarting application with flag '-g'!
+ABOUT ACTIONS
+Actions are the main form of giving commands to the computer. If you open 'system wide' or any further tab you can see action definition. Let's explain it closer:
+
+'Command': Voice-command for executing the action
+'Action': list of actions to execute
+    - there are 4 types of actions:
+            'Command': system command to execute
+            'HotKey': Keyboard shortcut
+            'Mouse': Mouse action (1 is left click, 3 is right)
+                    - Note: for Click you should write 1 | 1 (1 before | sign is press left mouse button, and 1 after says release left mouse button, this behaviour can be useful e.g. for selecting the text)
+            'String': For writing string in text fields (e.g. web-site addresses, etc...)
+'Next mode': [SHORTCUT-SET]-macro key of next mode (if you want to switch mode after executing action, mostly used in 'window manager desktop names')
+
+Of this for things you have to have defined 'Command' and at least one 'Action'
+
+
+USING THE APPLICATION
+After you understood how to configure/reconfigure application we will explain further usage. So as was told application starts in 'system' mode and in GUI you can see 'Standard' view. Available commands in 'system' mode are:
+
+[NAME] + [START_COMMAND] - switch to listening mode
+[NAME] + [UPDATE_COMMAND] - update database
+[NAME] + [CLOSE_COMMAND] - close application_name
+
+or you can use appropriate buttons at the bottom of the window.
+
+After starting 'listening' mode you can use all commands defined in macros/system file ('System', 'Window Manager' and 'System-wide' tab). For using commands defined in 'System' tab please read above where are explained all commands.
+
+When you are using specific shortcuts-set you can use also all commands from listening mode (if it's not defined differently, see before), except in 'special_states' modes (see before). If you want to switch back to listening mode use voice-command: [USE] + SYSTEM.
+
+
+PASSWORD AND USERNAMES (THERE IS NO GUI CURRENTLY!!!!)
+
+Passwords and usernames macros you can use it only in listening mode.
+
+Usernames are defined in usernames macro file like normal command (VOICE_MACRO=username). Usage: [USERNAME_COMMAND] + [USERNAME_MACRO]
 
 It's very convenient to speak a command to type a password that you use frequently. However, you should not type and save your password in any of the configuration files. Instead, you give your password an alias in 'macros/passwords' file. Then when Voice-control starts up, it will prompt you to enter the password for each alias, and Voice-control will remember the password while it is running, and type it out whenever you speak the alias.
 
-Example:
-Let's say your password for school is "easytoguess", and your work password is "worstever".
-Think of an alias for each password, for example "school" and "work".
-In the macros file 'passwords' put the word "school" in one line, and "work" on another line.
-Update Voice-control database and when you need to type out your school password "easytoguess", say "password school".
-
-
-USAGE
-Run the script: voice-control.py from main directory (e.g. in terminal 'voice-control/voice-control.py')
-Dictionary and model files will be generated automatically so you should wait a bit, application will send a notification when it's ready.
-
-NOTE: [SOMETHING] - value of [SOMETHING]
-
-Application is started in 'system' with commands:
-switch to listening mode: [NAME] + [START_COMMAND]
-update database: [NAME] + [UPDATE_COMMAND]
-close Voice-control: [NAME] + [CLOSE_COMMAND]
-
-In listening mode there are application specific commands (HAS TO BE IN 'listening' MODE):
-open application: [START] + [application_name]
-close application: [NAME] + [CLOSE] + [application_name]
-print password: [PASSWORD_COMMAND] + [password_alias]
-print user_name: [USERNAME_COMMAND] + [username_alias]
-
-In listening and all other modes besides 'system_wide' commands are also
-change desktop: [FOCUS] +[desktop_name]
-changing mode: [USE] + [shortcut_key]
-switch to system mode: [NAME] + [STOP_COMMAND]
+Usage: [PASSWORD_COMMAND] + [PASSWORD_MACRO]

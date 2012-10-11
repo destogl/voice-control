@@ -23,7 +23,7 @@ CLOSE_COMMAND=GOODBYE
 UPDATE_COMMAND=UPDATE
 # Command to repeat command (REPEAT_COMMAND=WORD)
 # usage: WORD
-REPEAT_COMMAND=AGAIN
+#REPEAT_COMMAND=AGAIN
 # Password command (PASSWORD_COMMAND=WORD)
 # usage: WORD + PASSWORD_MACRO(in passwords file)
 PASSWORD_COMMAND=KEY
@@ -85,20 +85,20 @@ VIRTUAL=virtualbox
 # List of desktop names and changing shortcuts (WORD=action_type:action:shortcut_set_key (optional))
 # usage: [FOCUS] + WORD
 section window_manager_desktop_names
-TERMINAL=hotkey:Super + 1:TERMINAL
-OPERA=hotkey:Super + 2:INTERNET
-INTERNET=hotkey:Super + 2:INTERNET
+TERMINAL=hotkey:Super + 1$TERMINAL
+OPERA=hotkey:Super + 2$INTERNET
+INTERNET=hotkey:Super + 2$INTERNET
 TORRENT=hotkey:Super + 2
-MAIL=hotkey:Super + 3:E-MAIL
-E-MAIL=hotkey:Super + 3:E-MAIL
+MAIL=hotkey:Super + 3$E-MAIL
+E-MAIL=hotkey:Super + 3$E-MAIL
 CHAT=hotkey:Super + 4
 CALL=hotkey:Super + 4
-FILES=hotkey:Super + 5:FILES
-OFFICE=hotkey:Super + 6:OFFICE
-EDITOR=hotkey:Super + 7:EDITOR
+FILES=hotkey:Super + 5$FILES
+OFFICE=hotkey:Super + 6$OFFICE
+EDITOR=hotkey:Super + 7$EDITOR
 MULTIMEDIA=hotkey:Super + 8
-AUDIO=hotkey:Super + 8:AUDIO
-VIDEO=hotkey:Super + 8:VIDEO
+AUDIO=hotkey:Super + 8$AUDIO
+VIDEO=hotkey:Super + 8$VIDEO
 VIRTUAL=hotkey:Super + 9
 RIGHT=hotkey:Super + ArrowRight
 LEFT=hotkey:Super + ArrowLeft
@@ -108,8 +108,6 @@ LEFT=hotkey:Super + ArrowLeft
 section window_manager_shortcuts
 MOVE RIGHT=hotkey:Super + Control + ArrowRight
 MOVE LEFT=hotkey:Super + Control + ArrowLeft
-NEXT APPLICATION=hotkey:Super + j
-PREVIOUS APPLICATION=hotkey:Super + K
 
 #KDE:
 #MAXIMIZE=hotkey:Alt + F3
@@ -123,6 +121,11 @@ PREVIOUS APPLICATION=hotkey:Super + K
 # System wide shortcuts will (WORDS=action_type:action:shortcut_set_key (optional))
 # usage: WORDS
 section system_wide
+# WM
+NEXT APPLICATION=hotkey:Super + j
+PREVIOUS APPLICATION=hotkey:Super + k
+
+# General
 COPY=hotkey:Control + c
 CUT=hotkey:Control + x
 PASTE=hotkey:Control + v
@@ -147,8 +150,8 @@ SYSTEM VOLUME MUTE=cmd:amixer -q sset Master mute
 SYSTEM VOLUME ON=cmd:amixer -q sset Master unmute
 SYSTEM VOLUME UP=cmd:amixer -q sset Master 10+
 SYSTEM VOLUME DOWN=cmd:amixer -q sset Master 10-
-SYSTEM SLEEP=cmd:xset dpms force off && xscreensaver-command -lock:SCREENSAVER
-SYSTEM TURN OFF MONITOR=cmd:xset dpms force off:SCREENSAVER
+SYSTEM SLEEP=cmd:xset dpms force off && xscreensaver-command -lock $ SCREENSAVER
+SYSTEM TURN OFF MONITOR=cmd:xset dpms force off $ SCREENSAVER
 INITIATE PROGRAMS=cmd:init-programs
 
 PRINT SCREEN=cmd:shutter -e -o '/home/denis/Pictures/screenshots/%Y%m%d_%T_$name.png' -f
@@ -156,7 +159,7 @@ PRINT SCREEN WINDOW=cmd:shutter -e -o '/home/denis/Pictures/screenshots/%Y%m%d_%
 PRINT SCREEN OPEN=cmd:shutter -C -f
 
 NEW TAB=hotkey:Control + t
-CLOSE APPLICATION=hotkey:Control + q|Control + Shift + q
+CLOSE APPLICATION=hotkey:Control + q | Control + Shift + q
 CLOSE TAB=hotkey:Control + w
 
 PRINT=cmd:xdotool type 'Bla, bla, bla, bla'
@@ -171,6 +174,18 @@ AUDIO PLAYER VOLUME DOWN=cmd:rhythmbox-client --volume-down
 AUDIO PLAYER MUTE=cmd:rhythmbox-client --set-volume 0
 AUDIO PLAYER VOLUME=cmd:rhythmbox-client --set-volume 0.5
 AUDIO PLAYER VOLUME ON=cmd:rhythmbox-client --set-volume 1
+
+# Totem distance control_keys
+VIDEO PLAYER PLAY=cmd:totem --play
+VIDEO PLAYER PAUSE=cmd:totem --pause
+VIDEO PLAYER NEXT=cmd:totem --next
+VIDEO PLAYER PREVIOUS=cmd:totem --previous
+VIDEO PLAYER SEEK FORWARD=cmd:totem --seek-fwd
+VIDEO PLAYER SEEK BACKWARD=cmd:totem --seek-bwd
+VIDEO PLAYER VOLUME UP=cmd:totem --volume-up
+VIDEO PLAYER VOLUME DOWN=cmd:totem --volume-down
+VIDEO PLAYER MUTE=cmd:totem --mute
+VIDEO PLAYER CLOSE=cmd:totem --quit
 
 # mouse
 MOUSE=mouse:1 | 1

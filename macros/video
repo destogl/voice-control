@@ -1,4 +1,16 @@
-PLAY=hotkey:Space
-PAUSE=hotkey:Space
-FULL SCREEN=hotkey:F11
+PLAY=cmd:totem --play
+PAUSE=cmd:totem --pause
+NEXT=cmd:totem --next
+PREVIOUS=cmd:totem --previous
+SEEK FORWARD=cmd:totem --seek-fwd
+SEEK BACKWARD=cmd:totem --seek-bwd
+VOLUME UP=cmd:totem --volume-up
+VOLUME DOWN=cmd:totem --volume-down
+MUTE=cmd:totem --mute
+FULLSCREEN=cmd:totem --fullscreen
+TOGGLE CONTROLS=cmd:totem --toggle-controls
+ENQUEUE=cmd:totem --enqueue
+REPLACE=cmd:totem --replace
+CLOSE=cmd:totem --quit
+
 DOWNLOAD SUBTITLES=hotkey:Alt + v | u | n
