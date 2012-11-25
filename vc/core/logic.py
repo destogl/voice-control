@@ -172,7 +172,7 @@ class Logic(object):
                 # TODO write function for search in special dictionaries
                 # Standard usage
                 elif word_list[0] == self.macros['system']['FOCUS']:
-                    self.__execute_action(self.macros['window_manager_desktop_names'][word_list[1]])
+                    self._execute_action(self.macros['window_manager_desktop_names'][word_list[1]])
                     
                 elif word_list[0] == self.macros['system']['USE']:
                     self.change_mode(self.macros['shortcuts'][word_list[1]], True)
@@ -182,7 +182,7 @@ class Logic(object):
                 
                 # System wide shortcuts
                 elif hyp in self.macros['system_wide'].keys():
-                    self.__execute_action(self.macros['system_wide'][hyp])
+                    self._execute_action(self.macros['system_wide'][hyp])
                 
                 #Password and user-name writer
                 elif self.mode == self.__LISTENING:
@@ -194,12 +194,12 @@ class Logic(object):
                 
                 # WM shortcuts
                 elif self.mode == self.__LISTENING or self.mode == self.__SYSTEM:
-                    self.__execute_action(self.macros['window_manager_shortcuts'][hyp])
+                    self._execute_action(self.macros['window_manager_shortcuts'][hyp])
                     
                 elif self.mode != self.__LISTENING and self.mode != self.__SYSTEM:
-                    self.__execute_action(self.macros['non_system'][self.mode][hyp])
+                    self._execute_action(self.macros['non_system'][self.mode][hyp])
 
-    def __execute_action(self, action_to_execute):
+    def _execute_action(self, action_to_execute):
         for action in action_to_execute[0]:
             self.functions[action[0]](self, action[1])
         if action_to_execute[1] != '':
