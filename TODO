@@ -8,3 +8,9 @@ General TODO list for Voice-control
 - disable only audio notifications
 - disable only system notifications
 - macros in OrganisedDictionary
+- using debug options to write debug messages
+
+KNOWN PROBLEMS
+- program is blocking somewhere - find it!!!
+- correct parsing Alt + + shortcut!!
+- Correct core-dump when updating-dictionaries (before gui is worked)
