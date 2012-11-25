@@ -139,6 +139,7 @@ CANCEL=hotkey:Esc
 RETURN=hotkey:Enter
 APPLY=hotkey:Enter
 TAB=hotkey:Tab
+FULL SCREEN=hotkey:F11
 
 SEARCH=hotkey:Control + f
 FILE OPEN=hotkey:Control + o
