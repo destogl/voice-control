@@ -34,7 +34,7 @@ class StandardView(GenericView):
         entryBuff = gtk.EntryBuffer(logic.mode, -1)
         tf.set_buffer(entryBuff)
         tf.set_editable(False)
-        tf.connect("changed", self.tf_changed)
+        #tf.connect("changed", self.tf_changed)
         self.logic.add_mode_status_output(tf)
         hbox.pack_start(tf)
         
