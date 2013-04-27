@@ -13,7 +13,7 @@ python-pocketsphinx: Python hooks into Pocketsphinx
 xmacro: Sends keystrokes to your screen
 espeak: Audio synthesiser for audio feedback
 python-mechanize: Python library for accessing web-pages trough program
-notify-show: Program to send notifications
+notify-send: Program to send notifications
 gstreamer0.10-plugins-base: GStreamer plugins for basic sound processing 
 gstreamer0.10-alsa: GStreamer plugin for ALSA, which makes your microphone work 
 
